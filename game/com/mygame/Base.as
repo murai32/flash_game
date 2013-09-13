@@ -23,7 +23,7 @@
 			
 			addEventListener(Event.ENTER_FRAME, debug)
 			
-			trace(stage.stageWidth)
+			trace("ширина сцены" + stage.stageWidth)
 			
 		}
 		

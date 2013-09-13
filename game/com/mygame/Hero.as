@@ -9,7 +9,9 @@
 	
 	public class Hero extends MovieClip
 	{
+		//начальная позиция героя задается тут!
 		private const START_POS_X:int = 275;
+		//private const START_POS_Y:int = 340;
 		private const START_POS_Y:int = 340;
 		private const SPEED:int = 4;
 		private const TRACE_KEY_CODE:Boolean = false;
@@ -21,9 +23,7 @@
 		
 		var gameLogic:GameLogic;
 		var background:Background;
-		//test
-		var addTestObj:Boolean = false;
-		var testObjSq:TestObjSq = new TestObjSq();
+		
 		
 		var scale:Number = 0.8;
 		public var helth:int = 5000;
@@ -90,10 +90,7 @@
 					fire();
 				}
 				
-				if (addTestObj)
-				{
-					test();
-				}
+				
 			}
 			
 			if (gameLogic.gameIsOver)
@@ -178,10 +175,7 @@
 		public function test():void
 		{
 			trace(gameLogic.backImg.getBounds(gameLogic));
-			testObjSq.x = gameLogic.backImg.getBounds(gameLogic).x
-			testObjSq.y = gameLogic.backImg.getBounds(gameLogic).y
-			testObjSq.width = gameLogic.backImg.getBounds(gameLogic).width
-			testObjSq.height = gameLogic.backImg.getBounds(gameLogic).height
+			
 		}
 		
 		public function playAnim(startFrame:int, endFrame:int)
@@ -235,6 +229,7 @@
 				playAnim(61, 76);
 			}
 			removeEventListener(Event.ENTER_FRAME, enterFrame);
+			bestGun.destroy();
 			removeChild(bestGun);
 			stage.removeChild(this);
 			

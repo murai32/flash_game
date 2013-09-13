@@ -24,7 +24,9 @@
 			this.y = START_POS_Y;
 			this.gameLogic = gameLogic;
 		}
-		
+		public function destroy (){
+			removeEventListener(Event.ENTER_FRAME, enterFrame);
+			}
 		private function enterFrame(e:Event):void
 		{
 			if (!gameLogic.gameIsOver)
@@ -82,7 +84,6 @@
 			
 			++frame;
 		}
-		
 		public function removeBullet()
 		{
 			

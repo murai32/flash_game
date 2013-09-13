@@ -30,10 +30,12 @@
 
 		//used for some animations
 		var timer;
+		
+		//шаг расстановки врагов
+		static var cooof: int = 0;
 
 		//Test
 		var addTestObj:Boolean = false;
-		var testObj:TestObj = new TestObj();
 		public var alive:Boolean = true;
 
 		var gameLogic;
@@ -54,12 +56,7 @@
 			act();
 		}
 
-		public function test():void
-		{
-			testObj.x = heroCoord().x;
-			testObj.y = heroCoord().y;
-
-		}
+		
 
 		public function act():void
 		{
@@ -107,20 +104,18 @@
 			}
 		}
 
-
+// добавленные
 		private function addedToStage(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
 			hero = stage.getChildByName('hero');
 			this.y = heroCoord().y + 18  ;
-			this.x = gameLogic.randRange(0,2) ? x = -900:x = 900;
+			// диапазон на котором появляются враги
+			//this.x = gameLogic.randRange(0,2) ? x = 280:x = 1525;
+			this.x = 200 + (cooof +=240);
 			this.height = 110;
 			this.scaleX = this.scaleY;
 			trace(this.x);
-			if (addTestObj)
-			{
-				parent.addChild(testObj);
-			}
 		}
 
 		public function init():void
@@ -231,6 +226,7 @@
 				gameLogic.updateHelth(gameLogic.hero.helth);
 				//trace ("здоровье игрока" + gameLogic.hero.helth);
 				if (gameLogic.hero.helth == 0){
+						gameLogic.gameIsOver=true;
 						gameLogic.gameOver();
 					}
 		}

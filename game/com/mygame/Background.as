@@ -1,4 +1,4 @@
-package com.mygame 
+﻿package com.mygame 
 {
 	import flash.display.MovieClip;
 	import flash.events.*;
@@ -10,10 +10,12 @@ package com.mygame
 		var rightBorder:int;
 		
 		public function Background() 
-		{
-			leftBorder = -width / 2;
-			rightBorder = width / 2;
-			
+		{	
+			//leftBorder = -width / 2;
+//			rightBorder = width / 2;
+			//задаем границы сцены (сдвинул сцену на 630a единиц)
+			leftBorder = -255;
+			rightBorder = 1555;	
 		}
 		
 		public function getLeftBorder():int

@@ -17,7 +17,7 @@
 		var enemies:Array = new Array();
 		var strtNumEnemies = 6;
 		var enInc:int = 2;
-		var gameIsOver:Boolean = false;
+		public var gameIsOver:Boolean = false;
 		
 		var message;
 		var scoreTxt:TextField;
@@ -27,6 +27,7 @@
 		var helthTxtFormat:TextFormat = new TextFormat();
 		var score:int = 0;
 		var gameOverText:GameOver;
+		var gameWinText:GameWin;
 		var skull:Skull;
 		var hurt:Krest; 
 		
@@ -86,15 +87,13 @@
 					++score;
 				}
 			}
-			
+			updateScore();
 			// когда врагов перебил, подкидываю еще кучку
 			
-			if (enemies.length == 0 && gameIsOver== false )
+			if (enemies.length == 0 )
 			{
-				createEnemies(strtNumEnemies * (enInc + 1))
-			}
-			
-			updateScore();
+				gameOver();
+			}			
 		}
 		
 		// цикл определяющий коль-во врагов
@@ -137,34 +136,57 @@
 			}
 		public function gameOver()
 		{
-			gameIsOver = true;
+			// тебя будем менять так где нужно
+			hero.dead();
+			hero = null;
+			
+			trace("врагов на поле перед удалением" + enemies.length);
+			if (gameIsOver==true){
 			gameOverText = new GameOver();
 			gameOverText.x = stage.stageWidth / 2;
 			gameOverText.y = stage.stageHeight / 2
-			trace("врагов на поле перед удалением" + enemies.length);
 			removeEnemies(enemies.length-1);
+			}
+			else
+			{
+			gameWinText = new GameWin();
+			gameWinText.x = stage.stageWidth / 2;
+			gameWinText.y = stage.stageHeight / 2;
+				}
 			trace("врагов на поле ПОСЛЕ УДАЛЕНИЯ " + enemies.length);
 			
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStage)
 			removeEventListener(Event.ENTER_FRAME, enterFrame);
 			//затераем ссылку на героя
-			hero = null;
+			
 			
 			//base.stage.addChild(gameOverText);
 			///ВЫЗОВ МЕНЮ
-			stage.addChild(gameOverText);
 			if (gameIsOver==true){
+				stage.addChild(gameOverText);
+			}
+			else{
+				stage.addChild(gameWinText);
+				};
 			stage.removeChild(hurt);
 			stage.removeChild(helthTxt);
-			stage.addEventListener(MouseEvent.CLICK, callMenu)};
+			stage.addEventListener(MouseEvent.CLICK, callMenu);
+			;
 			
 		}
 		
 		public function callMenu(evt:MouseEvent){
 			stage.removeEventListener(MouseEvent.CLICK, callMenu);
+			
 			stage.removeChild(skull);
 			stage.removeChild(scoreTxt);
-			stage.removeChild(gameOverText);
+			if (gameIsOver==true){
+				stage.removeChild(gameOverText);;
+			}
+			else{
+				stage.removeChild(gameWinText);
+				};
+			
 			base.showMenu();
 		}
 		public function showHelth()
